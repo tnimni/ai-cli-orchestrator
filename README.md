@@ -75,6 +75,9 @@ make deploy-pod TYPE=gemini NAME=my-gemini-pod USE_VERTEXAI=true USE_GCA=true
 # Deploy with Service Account JSON
 make deploy-pod TYPE=gemini NAME=my-gemini-pod GOOGLE_AUTH=path/to/service-account.json
 
+# Deploy with SSH keys mounted (useful for Git operations inside the pod)
+make deploy-pod TYPE=claude NAME=my-pod MOUNT_KEYS=true
+
 # Interact with a pod as if local
 make interact NAME=my-pod
 
@@ -85,7 +88,17 @@ make restart-pod NAME=my-pod
 make delete-pod NAME=my-pod
 ```
 
-### 7. Interactive Experience
+### 7. Mounting Local SSH Keys
+The orchestrator supports mounting your local SSH keys into the AI CLI pods. This is particularly useful if you need to perform Git operations (like cloning private repos) from within the pod.
+
+When you use the `MOUNT_KEYS=true` flag:
+1.  The manager identifies your local `~/.ssh` directory.
+2.  It creates a `HostPath` volume pointing to that directory.
+3.  It mounts this volume as **read-only** to `/root/.ssh` inside the CLI container.
+
+**Note:** This feature is primarily designed for local development environments (like Kind or Docker Desktop) where the host's file system is accessible to the Kubernetes nodes.
+
+### 8. Interactive Experience
 When you run `make interact NAME=my-pod`, the client:
 1.  Detects the CLI tool type (Gemini, Claude, etc.) from the pod's labels.
 2.  Connects your terminal directly to the CLI tool running inside the container.
