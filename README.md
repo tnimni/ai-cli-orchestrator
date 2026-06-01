@@ -104,7 +104,7 @@ When you run `make interact NAME=my-pod`, the client:
 2.  Connects your terminal directly to the CLI tool running inside the container.
 3.  Allows you to use the tool with full TTY support (colors, interactive prompts, etc.).
 
-### 8. Debugging Pods
+### 9. Debugging Pods
 If a pod is not working as expected, you can check the **Manager logs** to see how it was created:
 
 ```bash
