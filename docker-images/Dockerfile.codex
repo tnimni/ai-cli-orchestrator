@@ -1,0 +1,26 @@
+FROM node:slim
+
+# Install development utilities
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    git \
+    jq \
+    curl \
+    wget \
+    vim \
+    nano \
+    ca-certificates \
+    procps \
+    unzip \
+    zip \
+    tar \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install yq
+RUN YQ_VERSION="v4.44.1" && \
+    wget https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64 -O /usr/bin/yq && \
+    chmod +x /usr/bin/yq
+
+RUN npm install -g @openai/codex
+WORKDIR /work
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

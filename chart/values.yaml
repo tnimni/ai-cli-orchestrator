@@ -1,0 +1,18 @@
+# Default values for ai-cli-orchestrator.
+
+replicaCount: 1
+
+image:
+  repository: ai-cli-manager
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+service:
+  type: ClusterIP
+  port: 8080
+
+defaultRepo: "ai-cli-suite"
+
+serviceAccount:
+  create: true
+  name: "ai-cli-manager-sa"
