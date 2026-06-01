@@ -7,7 +7,7 @@ Ensure the following tools are installed on your system.
 
 ### macOS (Homebrew)
 ```bash
-brew install docker kind helm python github-cli
+brew install docker kind helm python github-cli go
 ```
 
 ### Ubuntu/Debian
@@ -36,6 +36,9 @@ sudo apt-get install helm
 
 # Python 3 & GitHub CLI
 sudo apt-get install python3 python3-pip gh -y
+
+# Go (Golang)
+sudo apt-get install golang -y
 ```
 
 ### Fedora/RHEL/CentOS
@@ -56,11 +59,14 @@ sudo dnf install helm
 
 # Python 3 & GitHub CLI
 sudo dnf install python3 gh -y
+
+# Go (Golang)
+sudo dnf install golang -y
 ```
 
 ### Arch Linux
 ```bash
-sudo pacman -S docker kind helm python python-pip github-cli
+sudo pacman -S docker kind helm python python-pip github-cli go
 sudo systemctl start docker
 ```
 
