@@ -3,12 +3,66 @@
 This guide provides step-by-step instructions to install and run the **AI CLI Orchestrator Suite** on a fresh machine.
 
 ## 1. Prerequisites
-Ensure the following tools are installed on your system:
-*   **Docker:** To build and run container images.
-*   **Kubernetes Cluster:** [Kind](https://kind.sigs.k8s.io/) is recommended for local setup.
-*   **Helm 3:** To deploy the manager service.
-*   **Python 3:** To run the client management tool.
-*   **Go 1.26+:** (Optional) Only needed if you plan to modify the Manager source code.
+Ensure the following tools are installed on your system.
+
+### macOS (Homebrew)
+```bash
+brew install docker kind helm python github-cli
+```
+
+### Ubuntu/Debian
+```bash
+# Docker
+sudo apt-get update
+sudo apt-get install ca-certificates curl gnupg
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo chmod a+r /etc/apt/keyrings/docker.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+# Kind
+[ $(uname -m) = x86_64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.22.0/kind-linux-amd64
+chmod +x ./kind
+sudo mv ./kind /usr/local/bin/kind
+
+# Helm
+curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
+sudo apt-get install apt-transport-https --yes
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
+sudo apt-get update
+sudo apt-get install helm
+
+# Python 3 & GitHub CLI
+sudo apt-get install python3 python3-pip gh -y
+```
+
+### Fedora/RHEL/CentOS
+```bash
+# Docker
+sudo dnf -y install dnf-plugins-core
+sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+sudo systemctl start docker
+
+# Kind
+curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.22.0/kind-linux-amd64
+chmod +x ./kind
+sudo mv ./kind /usr/local/bin/kind
+
+# Helm
+sudo dnf install helm
+
+# Python 3 & GitHub CLI
+sudo dnf install python3 gh -y
+```
+
+### Arch Linux
+```bash
+sudo pacman -S docker kind helm python python-pip github-cli
+sudo systemctl start docker
+```
 
 ---
 
